@@ -117,8 +117,8 @@ function getDigg(aid)
     <tr>
      <td>
 	 <style type="text/css">#a1{position:relative;z-index: 100;width:600px;height:400px;margin:0 auto;}</style>
-		<div id="a1"></div>
-      视频介绍：{dede:field.body/}
+	 <div id="a1"></div>
+      {dede:field.body/}
       {dede:field.vote/}
       (责任编辑：{dede:adminname/})</td>
     </tr>
@@ -286,7 +286,9 @@ function getDigg(aid)
 		};
 	var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always'};//这里定义播放器的其它参数如背景色（跟flashvars中的b不同），是否支持全屏，是否支持交互
 	var video=['{dede:field.video/}->video/mp4','{dede:field.video/}->video/webm','{dede:field.video/}->video/ogg'];
-	CKobject.embed('/ckplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',false,flashvars,video,params);
+	if (flashvars['f']!=''){
+		CKobject.embed('/ckplayer/ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',false,flashvars,video,params);
+	}
 	/*
 		以上代码演示的兼容flash和html5环境的。如果只调用flash播放器或只调用html5请看其它示例
 	*/
@@ -368,6 +370,12 @@ function getDigg(aid)
 		else{
 			CKobject.getObjectById('ckplayer_a1').removeListener('play','playHandler');
 		}
+	}
+  </script>
+  <script>
+	var ckplayerAutoDisplay=document.getElementById('a1');
+	if (ckplayerAutoDisplay.innerHTML==null||ckplayerAutoDisplay.innerHTML.length==0){
+		ckplayerAutoDisplay.style.display='none';
 	}
   </script>
 </body>
